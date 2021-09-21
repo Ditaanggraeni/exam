@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 type listMusik struct {
@@ -89,7 +90,18 @@ func viewTop3() {
 			break
 		}
 	}
+}
 
+func searchData() {
+	for j := range list {
+		lists := list[j]
+		var isPrefix = strings.HasPrefix(lists.penyanyi, "a")
+		if isPrefix == true {
+			fmt.Println(j+1, "\t", lists.Judul, "\t\t\t", lists.penyanyi, "\t\t\t", lists.jmlVote)
+		} else {
+			fmt.Println("\n\t\t\tDATA TIDAK DITEMUKAN!")
+		}
+	}
 }
 
 func main() {
@@ -148,6 +160,12 @@ func main() {
 			fmt.Println("==================================================================== ")
 			fmt.Println("ID \tJudul Lagu \t\tPenyanyi \t\tJumlah Vote")
 			viewTop3()
+
+		case 6:
+			fmt.Println("            DATA DENGAN NAMA PENYANYI BERAWALAN HURUF A              ")
+			fmt.Println("==================================================================== ")
+			fmt.Println("ID \tJudul Lagu \t\tPenyanyi \t\tJumlah Vote")
+			searchData()
 
 		case 0:
 			x = false
