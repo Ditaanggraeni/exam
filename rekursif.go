@@ -7,7 +7,7 @@ import (
 )
 
 var total = 0
-var sum = 0
+var sum = 2
 
 func deretAngka(jumlah int, awal int) int {
 
