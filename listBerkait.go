@@ -70,6 +70,28 @@ func deleteData() {
 
 }
 
+func viewTop3() {
+	var top int = 0
+	var i float64 = 5.0
+
+	for i >= 0 {
+		for j := range list {
+			lists := list[j]
+			if lists.jmlVote <= i {
+				fmt.Println(top+1, "\t", lists.Judul, "\t\t\t", lists.penyanyi, "\t\t\t", lists.jmlVote)
+				top++
+			}
+			if top == 3 {
+				break
+			}
+		}
+		if top <= 3 {
+			break
+		}
+	}
+
+}
+
 func main() {
 	var pilih int
 	var x = true
@@ -120,6 +142,13 @@ func main() {
 
 			fmt.Print("Jumlah Keseluruhan Jumlah Vote : ")
 			fmt.Println(jumlah)
+
+		case 5:
+			fmt.Println("                        TOP 3 MUSIK TERFAVORIT                       ")
+			fmt.Println("==================================================================== ")
+			fmt.Println("ID \tJudul Lagu \t\tPenyanyi \t\tJumlah Vote")
+			viewTop3()
+
 		case 0:
 			x = false
 		}
