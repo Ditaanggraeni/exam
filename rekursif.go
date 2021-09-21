@@ -7,7 +7,9 @@ import (
 )
 
 var total = 0
-var sum = 2
+var sum = 0
+var jmlh = 0.0
+var jumlahI = 0.0
 
 func deretAngka(jumlah int, awal int) int {
 
@@ -25,21 +27,19 @@ func deretAngka(jumlah int, awal int) int {
 	return i + total
 }
 
-func deretPecahan(i int, jumlah int, pecahan string) int {
-
-	if i <= jumlah {
-		pangkat := int(math.Pow(float64(i), float64(2)))
-		if pecahan == "penyebut" {
-			fmt.Printf(" x^%d/%d + ", i, pangkat)
-		} else {
-			fmt.Printf("%dx/%d  ", pangkat, i)
-		}
-
-		return pangkat + deretPecahan(i+1, jumlah, pecahan)
-
-	} else {
-		return 0
+func deretPecahan(i float64) float64 {
+	if i <= 1 {
+		jumlahI = jumlahI + 1
+		jmlh = jmlh + 2
+		fmt.Printf("x^1/1 + ")
+		return i
 	}
+	y := deretPecahan(i - 1)
+	jumlahI = jumlahI + i
+	x := i * i
+	jmlh = jmlh + x
+	fmt.Printf("x^%.0f/%.0f + ", i, x)
+	return y
 }
 
 func upperCase(kata string, i int) int {
@@ -61,19 +61,40 @@ func upperCase(kata string, i int) int {
 }
 
 func main() {
-	var jumlah int
+	var jumlah, pilihan int
 	var kata string
+	var x = true
 
-	fmt.Print("Masukan jumlah deret : ")
-	fmt.Scan(&jumlah)
-	fmt.Print("Masukan Kata : ")
-	fmt.Scan(&kata)
+	for x {
+		fmt.Println("\n================== PILIHAN ===================")
+		fmt.Println("1. Deret Perkalian Angka")
+		fmt.Println("2. Deret Bilangan Pecahan")
+		fmt.Println("3. Hitung Jumlah Huruf Kapital Pada Kalimat")
+		fmt.Println("0. Keluar")
+		fmt.Println("==============================================")
+		fmt.Print("Masukkan Pilihan : ")
+		fmt.Scan(&pilihan)
+		fmt.Println("==============================================")
 
-	fmt.Print("1. ")
-	fmt.Println(" =", deretAngka(jumlah, 5))
-	fmt.Print("2. ")
-	fmt.Println("= x^ ", "/", deretPecahan(1, jumlah, "penyebut"))
-	fmt.Print("3. ")
-	fmt.Printf("Jumlah huruf kapital pada kata %s : ", kata)
-	fmt.Println(upperCase(kata, 0))
+		switch pilihan {
+		case 1:
+			fmt.Print("Masukan jumlah deret : ")
+			fmt.Scan(&jumlah)
+			fmt.Print("SUM = ")
+			fmt.Println(" =", deretAngka(jumlah, 5))
+		case 2:
+			fmt.Print("Masukan jumlah deret : ")
+			fmt.Scan(&jumlah)
+			fmt.Print("SUM = ")
+			deretPecahan(float64(jumlah))
+			fmt.Printf("= x^%.0f/%.0f\n", jumlahI, jmlh)
+		case 3:
+			fmt.Print("Masukan Kata : ")
+			fmt.Scan(&kata)
+			fmt.Printf("Jumlah huruf kapital pada kata %s : ", kata)
+			fmt.Println(upperCase(kata, 0))
+		case 0:
+			x = false
+		}
+	}
 }
